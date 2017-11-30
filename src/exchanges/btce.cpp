@@ -55,8 +55,9 @@ quote_t getQuote(Parameters& params)
 double getAvail(Parameters &params, std::string currency)
 {
   unique_json root { authRequest(params, "getInfo") };
-  auto funds = json_object_get(json_object_get(root.get(), "funds"), currency.c_str());
-  return json_number_value(funds);
+  const char *funds = json_string_value(json_object_get(json_object_get(root.get(), "funds"), currency.c_str()));
+  double result = funds ? std::stod(funds) : 0.0;
+  return result;
 }
 
 std::string sendLongOrder(Parameters &params, std::string direction, double quantity, double price)
