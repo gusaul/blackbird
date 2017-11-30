@@ -68,7 +68,7 @@ std::string sendLongOrder(Parameters &params, std::string direction, double quan
   std::ostringstream options;
   options << "pair=btc_usd"
           << "&type="   << direction
-          << "&amount=" << std::fixed << quantity;
+          << "&amount=" << std::fixed << std::setprecision(8) << quantity;
   // BTCe's 'Trade' method requires rate to be limited to 3 decimals
   // otherwise it'll barf an error message about incorrect fields
   options << "&rate="   << std::setprecision(3) << price;
